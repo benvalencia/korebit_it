@@ -2,6 +2,7 @@
   "name": "korebit-it",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@10.15.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,6 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.15"
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.15",
+    "tailwindcss": "^4.1.18"
   }
 }
