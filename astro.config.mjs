@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 const isProd = import.meta.env.PROD;
 const site = 'https://www.korebit.net'
-const base = isProd ? '/korebit_it' : '/'
+const base = '/'
 
 export default defineConfig({
   site,
