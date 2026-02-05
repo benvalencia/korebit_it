@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from "@tailwindcss/vite";
 
 const isProd = import.meta.env.PROD;
-const site = 'https://benvalencia.github.io/korebit_it'
+const site = 'https://www.korebit.net'
 const base = isProd ? '/korebit_it' : '/'
 
 export default defineConfig({
