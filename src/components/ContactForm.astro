@@ -1,9 +1,4 @@
 ---
-const submitForm = (e: Event) => {
-  
-  e.preventDefault();
-  alert('Formulario enviado');
-};
 ---
 	<main class="">
       <!DOCTYPE html>
@@ -80,16 +75,16 @@ const submitForm = (e: Event) => {
                   <h2 class="text-4xl md:text-5xl font-serif-display text-gray-800 mb-2">Empecemos a <span class="text-blue-700 italic">Crear</span></h2>
                   <p class="text-gray-500 mb-8">Completa el formulario y te responderemos en 24h.</p>
 
-                  <form action="#" class="space-y-6">
+                  <form class="space-y-6">
                       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div class="space-y-2">
                               <label for="name" class="text-sm font-semibold text-gray-600">Nombre Completo</label>
-                              <input type="text" id="name" placeholder="Juan Pérez"
+                              <input type="text" id="name" required placeholder="Juan Pérez"
                                      class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-600/10 transition-all duration-300">
                           </div>
                           <div class="space-y-2">
                               <label for="email" class="text-sm font-semibold text-gray-600">Correo Electrónico</label>
-                              <input type="email" id="email" placeholder="hola@ejemplo.com"
+                              <input type="email" id="email" required placeholder="hola@ejemplo.com"
                                      class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-600/10 transition-all duration-300">
                           </div>
                       </div>
@@ -97,20 +92,17 @@ const submitForm = (e: Event) => {
                       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div class="space-y-2">
                               <label for="phone" class="text-sm font-semibold text-gray-600">Teléfono</label>
-                              <input type="tel" id="phone" placeholder="(809) 000-0000"
+                              <input type="tel" id="phone" required placeholder="+34 699 40 60 78"
                                      class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-600/10 transition-all duration-300">
                           </div>
                           <div class="space-y-2">
                               <label for="interest" class="text-sm font-semibold text-gray-600">Estoy interesado en</label>
                               <div class="relative">
-                                  <select id="interest" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-600/10 transition-all duration-300 appearance-none cursor-pointer">
+                                  <select id="interest" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-600/10 transition-all duration-300 appearance-none cursor-pointer">
                                       <option value="" disabled selected>Selecciona un servicio...</option>
-                                      <option value="arte">Arte y Pintura</option>
-                                      <option value="belleza">Belleza y Estética</option>
-                                      <option value="cocina">Cocina y Repostería</option>
-                                      <option value="costura">Costura y Moda</option>
-                                      <option value="manualidades">Manualidades</option>
-                                      <option value="seminarios">Seminarios</option>
+                                      <option value="arte">Help desk</option>
+                                      <option value="belleza">CAU</option>
+                                      <option value="cocina">Desarrollo de web / apps</option>
                                   </select>
                                   <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500">
                                       <ion-icon name="chevron-down-outline"></ion-icon>
@@ -125,7 +117,7 @@ const submitForm = (e: Event) => {
                                     class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-600/10 transition-all duration-300 resize-none"></textarea>
                       </div>
 
-                      <button type="button" class="group w-full md:w-auto bg-blue-900 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-800 hover:shadow-blue-900/30 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                      <button type="submit" class="group w-full md:w-auto bg-blue-900 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-800 hover:shadow-blue-900/30 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
                           Enviar Mensaje
                           <ion-icon name="paper-plane-outline" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></ion-icon>
                       </button>
@@ -133,6 +125,46 @@ const submitForm = (e: Event) => {
               </div>
           </div>
       </section>
+      <script>
+        // import { actions } from 'astro:actions';
+        // import { navigate } from 'astro:transitions/client';
+
+        const form = document.querySelector('form');
+        form?.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const name = document.querySelector('#name')?.value;
+          const email = document.querySelector('#email')?.value;
+          const phone = document.querySelector('#phone')?.value;
+          const interest = document.querySelector('#interest')?.value;
+          const message = document.querySelector('#message')?.value;
+
+          const resend = 're_X7oj12Ri_Jh4Hw2YE92dx5H3uSPYVsAVH'
+
+          await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${resend}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              'from': `${email}`,
+              'to': 'ben_valencia@icloud.com',
+              'subject': 'Korebit Contact Form Submission',
+              'html': `
+                <div>
+                    <h1>Nuevo formulario</h1>
+                    <div>
+                        <p><strong>Nombre:</strong> ${name}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Teléfono:</strong> ${phone}</p>
+                        <p><strong>Interés:</strong> ${interest}</p>
+                        <p><strong>Mensaje:</strong> ${message}</p>
+                    </div>
+                </div>`
+            })
+          });
+        })
+      </script>
       </body>
       </html>
 	</main>
